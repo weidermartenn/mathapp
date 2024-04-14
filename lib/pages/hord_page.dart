@@ -102,16 +102,7 @@ class _HordPageState extends State<HordPage> {
                             ),
                           ),
                        ),
-                       SizedBox(
-                        width: 60,
-                        height: 30,
-                        child: TextFormField(
-                          keyboardType: const TextInputType.numberWithOptions(decimal: true, signed: false),
-                          decoration: const InputDecoration(
-                              hintText: 'x^2',
-                            ),
-                          ),
-                       ),
+                       
                        SizedBox(
                         width: 60,
                         height: 30,
