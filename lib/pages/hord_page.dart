@@ -233,14 +233,14 @@ class _HordPageState extends State<HordPage> {
                     width: 400,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      color: Color.fromARGB(255, 223, 223, 223),
+                      color: const Color.fromARGB(255, 223, 223, 223),
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(10),
                       child: SingleChildScrollView(
                         scrollDirection: Axis.vertical,
                         child: Text( 
-                          '$result',
+                          result,
                           style: const TextStyle(fontWeight: FontWeight.normal),
                         )
                       ),
