@@ -4,15 +4,22 @@ String chord(double x_prev, double x_curr, double e, List<double> coefs){
   String result = '';
   double x_next = 0;
   double tmp;
-  do {
-    result += 'Промежуток [${x_prev.toStringAsFixed(3)}, ${x_curr.toStringAsFixed(3)}]\n';
+  int iter = 1;
+  if (f(x_prev, coefs) * f(x_curr, coefs) > 0){
+    result += 'В данном промежутке корня нет';
+  }
+  else{
+    do {
+    result += '$iter-й промежуток [${x_prev.toStringAsFixed(3)}, ${x_curr.toStringAsFixed(3)}]\n';
     tmp = x_next;
     x_next = x_curr - f(x_curr, coefs) * (x_prev - x_curr) / (f(x_prev, coefs) - f(x_curr, coefs));
-    result += 'ksi = $x_next\n';
+    result += 'ksi = ${x_next.toStringAsFixed(4)}\n\n';
     x_prev = x_curr;
     x_curr = tmp;
+    iter++;
   } while ((x_next - x_curr).abs() > e);
   result += 'Результат: ${x_next.toStringAsFixed(3)}';
+  }
   return result;
 }
 
