@@ -68,12 +68,10 @@ String iterative(List<double> approx, List<double> firstRow, List<double> second
 
     iter++;
 
-    // Проверяем условие остановки
     double maxDiff = (x1 - x1_prev).abs();
     maxDiff = maxDiff < (x2 - x2_prev).abs() ? (x2 - x2_prev).abs() : maxDiff;
     maxDiff = maxDiff < (x3 - x3_prev).abs() ? (x3 - x3_prev).abs() : maxDiff;
 
-    // Если максимальная разница между новыми и предыдущими значениями меньше заданной точности, завершаем итерацию
     if (maxDiff < e) {
       result += 'Решение найдено после $iter итераций:\n';
       result += 'x1 = ${x1.toStringAsFixed(2)}\nx2 = ${x2.toStringAsFixed(2)}\nx3 = ${x3.toStringAsFixed(2)}\n';
