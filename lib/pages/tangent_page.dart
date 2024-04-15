@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '/scripts/lu_methods.dart';
 
 class TangentPage extends StatefulWidget {
   const TangentPage({super.key});
@@ -8,23 +9,13 @@ class TangentPage extends StatefulWidget {
 }
 
 class _TangentPageState extends State<TangentPage> {
-
-  double a = 0;
-  double b = 0;
-  double c = 0;
-  int intervalA = 0;
-  int intervalB = 0;
-  double accuracy = 0;
-  
-  @override
-  void initState(){
-    super.initState();
-  }
-
-  @override
-  void dispose(){
-    super.dispose();
-  }
+  final TextEditingController _a = TextEditingController();
+  final TextEditingController _b = TextEditingController();
+  final TextEditingController _c = TextEditingController();
+  final TextEditingController _e = TextEditingController();
+  final TextEditingController _x0 = TextEditingController();
+  final TextEditingController _x1 = TextEditingController();
+  String result = '';
 
   @override
   Widget build(BuildContext context) {
@@ -37,24 +28,28 @@ class _TangentPageState extends State<TangentPage> {
         ),
         textTheme: const TextTheme(
           titleLarge: TextStyle(
-            fontSize: 25,
+            fontSize: 26,
             fontWeight: FontWeight.bold,
           ),
           bodyMedium: TextStyle(
-            fontSize: 16,
+            fontSize: 20,
             fontWeight: FontWeight.w500,
           ),
+          bodyLarge: TextStyle(
+            fontSize: 18,
+          )
         ),
         inputDecorationTheme: const InputDecorationTheme(
           border: OutlineInputBorder(),
           contentPadding: EdgeInsets.only(left: 10),
             hintStyle: TextStyle(
-              fontSize: 14,
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
           )
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(Color.fromARGB(255, 172, 247, 143)),
+            backgroundColor: MaterialStateProperty.all(const Color.fromARGB(255, 172, 247, 143)),
             foregroundColor: MaterialStateProperty.all(Colors.black),
             elevation: MaterialStateProperty.all(5),
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -85,18 +80,19 @@ class _TangentPageState extends State<TangentPage> {
             children: [
               Column (
                 children: [
-                  Text('ВВЕДИТЕ ПАРАМЕТРЫ'),
+                  const Text('ВВЕДИТЕ ПАРАМЕТРЫ'),
                   Padding(
                     padding: const EdgeInsets.only(top: 10),
                     child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Text('f(x) = '),
+                      const Text('f(x) = '),
                        SizedBox(
-                        width: 60,
-                        height: 30,
+                        width: 70,
+                        height: 50,
                         child: TextFormField(
-                          keyboardType: const TextInputType.numberWithOptions(decimal: true, signed: false),
+                          controller: _a,
+                          keyboardType: const TextInputType.numberWithOptions(decimal: true, signed: true),
                           decoration: const InputDecoration(
                               hintText: 'x^3',
                             ),
@@ -104,10 +100,11 @@ class _TangentPageState extends State<TangentPage> {
                        ),
                        
                        SizedBox(
-                        width: 60,
-                        height: 30,
+                        width: 70,
+                        height: 50,
                         child: TextFormField(
-                          keyboardType: const TextInputType.numberWithOptions(decimal: true, signed: false),
+                          controller: _b,
+                          keyboardType: const TextInputType.numberWithOptions(decimal: true, signed: true),
                           decoration: const InputDecoration(
                               hintText: 'x^1',
                               
@@ -115,13 +112,13 @@ class _TangentPageState extends State<TangentPage> {
                           ),
                        ),
                        SizedBox(
-                        width: 60,
-                        height: 30,
+                        width: 70,
+                        height: 50,
                         child: TextFormField(
-                          keyboardType: const TextInputType.numberWithOptions(decimal: true, signed: false),
+                          controller: _c,
+                          keyboardType: const TextInputType.numberWithOptions(decimal: true, signed: true),
                           decoration: const InputDecoration(
                               hintText: 'x^0',
-                              
                             ),
                           ),
                        ),
@@ -138,29 +135,31 @@ class _TangentPageState extends State<TangentPage> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Text('[ '),
+                              const Text('[ ', style: TextStyle(fontSize: 35)),
                               SizedBox(
-                                width: 40,
-                                height: 30,
+                                width: 60,
+                                height: 50,
                                 child: TextFormField(
-                                  keyboardType: const TextInputType.numberWithOptions(decimal: true, signed: false),
+                                  controller: _x0,
+                                  keyboardType: const TextInputType.numberWithOptions(decimal: true, signed: true),
                                   decoration: const InputDecoration(
                                       hintText: 'a',
                                     ),
                                   ),
                               ),
-                              const Text(' ; '),
+                              const Text(' ; ', style: TextStyle(fontSize: 35)),
                               SizedBox(
-                                width: 40,
-                                height: 30,
+                                width: 60,
+                                height: 50,
                                 child: TextFormField(
-                                  keyboardType: const TextInputType.numberWithOptions(decimal: true, signed: false),
+                                  controller: _x1,
+                                  keyboardType: const TextInputType.numberWithOptions(decimal: true, signed: true),
                                   decoration: const InputDecoration(
                                       hintText: 'b',
                                     ),
                                   ),
                               ),
-                              const Text(' ]'),
+                              const Text(' ]', style: TextStyle(fontSize: 35)),
                             ],
                           ),
                         ),
@@ -168,21 +167,22 @@ class _TangentPageState extends State<TangentPage> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: 20, bottom: 20),
+                    padding: const EdgeInsets.only(top: 20, bottom: 20),
                     child: Column(
                       children: [
                         const Text('ЗАДАННАЯ ТОЧНОСТЬ'),
                         Padding( 
-                          padding: EdgeInsets.only(top: 10),
+                          padding: const EdgeInsets.only(top: 10),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               const Text('E = '),
                               SizedBox(
-                                width: 60,
-                                height: 30,
+                                width: 70,
+                                height: 50,
                                 child: TextFormField(
+                                  controller: _e,
                                   keyboardType: const TextInputType.numberWithOptions(decimal: true, signed: false),
                                   decoration: const InputDecoration(
                                       hintText: '0.001',
@@ -195,12 +195,32 @@ class _TangentPageState extends State<TangentPage> {
                       ]
                     ),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.only(bottom: 20),
-                    child: ElevatedButton(
-                      onPressed: null,
-                      child: Text('РАССЧИТАТЬ'),
-                    ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 20),
+                    child: SizedBox( 
+                      width: 220,
+                      height: 60,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          setState(() {
+                            double a = double.tryParse(_a.text) ?? 0;
+                            double b = double.tryParse(_b.text) ?? 0;
+                            double c = double.tryParse(_c.text) ?? 0;
+                            double x0 = double.tryParse(_x0.text) ?? 0;
+                            double x1 = double.tryParse(_x1.text) ?? 0;
+                            double e = double.tryParse(_e.text) ?? 0;
+                            List<double> coefs = [a, b, c];
+                            result = tangent(x0, x1, e, coefs);
+                          });
+                        },
+                        child: const Text(
+                          'РАССЧИТАТЬ',
+                          style: TextStyle(
+                            fontSize: 20,
+                          )
+                        ),
+                      ),
+                    )
                   )
                 ]
               ),
@@ -208,10 +228,23 @@ class _TangentPageState extends State<TangentPage> {
                 children: [
                   const Text('РЕЗУЛЬТАТ'),
                   Container(
-                    margin: const EdgeInsets.all(20),
-                    height: 260,
-                    width: 350,
-                    color: const Color.fromARGB(255, 210, 229, 245),
+                    margin: const EdgeInsets.all(10),
+                    height: 280,
+                    width: 400,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: const Color.fromARGB(255, 223, 223, 223),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.vertical,
+                        child: Text( 
+                          result,
+                          style: const TextStyle(fontWeight: FontWeight.normal),
+                        )
+                      ),
+                    ),
                   ),
                 ]
               )

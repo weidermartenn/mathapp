@@ -70,9 +70,7 @@ class MainApp extends StatelessWidget {
                 width: 230,
                 height: 50,
                 child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/iterationpage');
-                  },
+                  onPressed: null,
                   child: const Text('МЕТОД ИТЕРАЦИЙ'),
                 ),
               ),
@@ -89,7 +87,9 @@ class MainApp extends StatelessWidget {
                 width: 230,
                 height: 50,
                 child: ElevatedButton(
-                  onPressed: null,
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/iterationpage');
+                  },
                   child: Text('МЕТОД ИТЕРАЦИЙ'),
                 ),
               ),
