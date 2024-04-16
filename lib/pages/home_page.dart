@@ -71,16 +71,22 @@ class MainApp extends StatelessWidget {
                 height: 50,
                 child: ElevatedButton(
                   onPressed: null,
+                  style: ButtonStyle( 
+                    backgroundColor: MaterialStateProperty.all(const Color.fromARGB(255, 135, 48, 48)),
+                  ),
                   child: const Text('МЕТОД ИТЕРАЦИЙ'),
                 ),
               ),
-              Text('МЕТОДЫ РЕШЕНИЯ СИСТЕМ УРАВНЕНИЙ'),
+              const Text('МЕТОДЫ РЕШЕНИЯ СИСТЕМ УРАВНЕНИЙ'),
               SizedBox(
                 width: 230,
                 height: 50,
                 child: ElevatedButton(
                   onPressed: null,
-                  child: Text('МЕТОД ГАУССА'),
+                  style: ButtonStyle( 
+                    backgroundColor: MaterialStateProperty.all(const Color.fromARGB(255, 135, 48, 48)),
+                  ),
+                  child: const Text('МЕТОД ГАУССА'),
                 ),
               ),
               SizedBox(
@@ -90,15 +96,17 @@ class MainApp extends StatelessWidget {
                   onPressed: () {
                     Navigator.pushNamed(context, '/iterationpage');
                   },
-                  child: Text('МЕТОД ИТЕРАЦИЙ'),
+                  child: const Text('МЕТОД ИТЕРАЦИЙ'),
                 ),
               ),
               SizedBox(
                 width: 230,
                 height: 50,
                 child: ElevatedButton(
-                  onPressed: null,
-                  child: Text('МЕТОД ЗЕЙДЕЛЯ'),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/zeidelpage');
+                  },
+                  child: const Text('МЕТОД ЗЕЙДЕЛЯ'),
                 ),
               ),
             ],

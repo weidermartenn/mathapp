@@ -80,6 +80,12 @@ String iterative(List<double> approx, List<double> firstRow, List<double> second
   } while (true);
 }
 
+String zeidel(List<double> approx, List<double> firstRow, List<double> secondRow, List<double> thirdRow, List<double> b, double e) {
+  String result = '';
+
+  return result;
+}
+
 double f (double x, List<double> coefs){
   return coefs[0] * pow(x, 3) + coefs[1] * x + coefs[2]; 
 }
