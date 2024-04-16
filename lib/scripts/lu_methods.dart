@@ -80,10 +80,37 @@ String iterative(List<double> approx, List<double> firstRow, List<double> second
   } while (true);
 }
 
-String zeidel(List<double> approx, List<double> firstRow, List<double> secondRow, List<double> thirdRow, List<double> b, double e) {
+String seidel(List<double> firstRow, List<double> secondRow, List<double> thirdRow, List<double> b, double e) {
   String result = '';
+  double x1 = 0, x2 = 0, x3 = 0; // Начальные значения x1, x2 и x3 можно выбрать любыми
 
-  return result;
+  result += 'Начальное приближение: {\n\tx1 = $x1\n\tx2 = $x2\n\tx3 = $x3\n}\n';
+
+  int iter = 1;
+
+  do {
+    double x1_prev = x1;
+    double x2_prev = x2;
+    double x3_prev = x3;
+
+    x1 = (b[0] - firstRow[1] * x2_prev - firstRow[2] * x3_prev) / firstRow[0];
+    x2 = (b[1] - secondRow[0] * x1 - secondRow[2] * x3_prev) / secondRow[1];
+    x3 = (b[2] - thirdRow[0] * x1 - thirdRow[1] * x2) / thirdRow[2];
+
+    result += 'Итерация $iter: {\n\tx1 = ${x1.toStringAsFixed(3)}\n\tx2 = ${x2.toStringAsFixed(3)}\n\tx3 = ${x3.toStringAsFixed(3)}\n}\n';
+
+    iter++;
+
+    double maxDiff = (x1 - x1_prev).abs();
+    maxDiff = maxDiff < (x2 - x2_prev).abs() ? (x2 - x2_prev).abs() : maxDiff;
+    maxDiff = maxDiff < (x3 - x3_prev).abs() ? (x3 - x3_prev).abs() : maxDiff;
+
+    if (maxDiff < e) {
+      result += 'Решение найдено после $iter итераций:\n';
+      result += 'x1 = ${x1.toStringAsFixed(2)}\nx2 = ${x2.toStringAsFixed(2)}\nx3 = ${x3.toStringAsFixed(2)}\n';
+      return result;
+    }
+  } while (true);
 }
 
 double f (double x, List<double> coefs){
