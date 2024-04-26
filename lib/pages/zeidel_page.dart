@@ -19,6 +19,11 @@ class _ZeidelPageState extends State<ZeidelPage> {
   final TextEditingController _x32 = TextEditingController();
   final TextEditingController _x33 = TextEditingController();
 
+  final TextEditingController _x10 = TextEditingController();
+  final TextEditingController _x20 = TextEditingController();
+  final TextEditingController _x30 = TextEditingController();
+
+
   final TextEditingController _b1 = TextEditingController();
   final TextEditingController _b2 = TextEditingController();
   final TextEditingController _b3 = TextEditingController();
@@ -265,6 +270,53 @@ class _ZeidelPageState extends State<ZeidelPage> {
                     ],
                   ),
                   ),
+                  const Text('ПЕРВОЕ ПРИБЛИЖЕНИЕ'),
+                  Padding( 
+                    padding: const EdgeInsets.only(top: 10, bottom: 20),
+                    child: Row( 
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [ 
+                        const Text('{', style: TextStyle(fontSize: 100, fontWeight: FontWeight.w100),),
+                        Column( 
+                          children: [
+                            SizedBox(
+                              width: 70,
+                              height: 50,
+                              child: TextFormField(
+                              controller: _x10,          
+                              keyboardType: const TextInputType.numberWithOptions(decimal: true, signed: true),
+                              decoration: const InputDecoration(
+                                  hintText: 'x₁⁽°⁾',
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 70,
+                              height: 50,
+                              child: TextFormField(
+                              controller: _x20,          
+                              keyboardType: const TextInputType.numberWithOptions(decimal: true, signed: true),
+                              decoration: const InputDecoration(
+                                  hintText: 'x₂⁽°⁾',
+                                ),
+                              ),
+                            ),  
+                            SizedBox(
+                              width: 70,
+                              height: 50,
+                              child: TextFormField(
+                              controller: _x30,          
+                              keyboardType: const TextInputType.numberWithOptions(decimal: true, signed: true),
+                              decoration: const InputDecoration(
+                                  hintText: 'x₃⁽°⁾',
+                                ),
+                              ),
+                            ),            
+                          ]
+                        )
+                      ],
+                    )
+                  ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 20),
                     child: Column(
@@ -302,6 +354,12 @@ class _ZeidelPageState extends State<ZeidelPage> {
                       child: ElevatedButton(
                         onPressed: () {
                           setState(() {
+                            double x10 = double.parse(_x10.text);
+                            double x20 = double.parse(_x20.text);
+                            double x30 = double.parse(_x30.text);
+
+                            List<double> approx = [x10, x20, x30];
+
                             double x11 = double.parse(_x11.text);
                             double x12 = double.parse(_x12.text);
                             double x13 = double.parse(_x13.text);
@@ -328,7 +386,7 @@ class _ZeidelPageState extends State<ZeidelPage> {
 
                             double e = double.parse(_e.text);
 
-                            result = seidel(firstRow, secondRow, thirdRow, b, e);
+                            result = seidel(approx, firstRow, secondRow, thirdRow, b, e);
                           });
                         },
                         child: const Text(
@@ -347,7 +405,7 @@ class _ZeidelPageState extends State<ZeidelPage> {
                   const Text('РЕЗУЛЬТАТ'),
                   Container(
                     margin: const EdgeInsets.all(10),
-                    height: 280,
+                    height: 1000,
                     width: 400,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),

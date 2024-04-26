@@ -404,7 +404,7 @@ class _IterationPageState extends State<IterationPage> {
                   const Text('РЕЗУЛЬТАТ'),
                   Container(
                     margin: const EdgeInsets.all(10),
-                    height: 280,
+                    height: 1000,
                     width: 400,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),

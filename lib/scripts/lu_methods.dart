@@ -13,6 +13,8 @@ String chord(double x0, double x1, double e, List<double> coefs){
       ksi = x1 - (f(x1, coefs) * (x1 - x0)) / (f(x1, coefs) - f(x0, coefs));
       x0 = x1;
       x1 = ksi;
+      result += 'F(${x0.toStringAsFixed(2)}) = ${f(x0, coefs).toStringAsFixed(4)}\n';
+      result += 'F(${x1.toStringAsFixed(2)}) = ${f(x1, coefs).toStringAsFixed(4)}\n';
       result += 'x$iter = ${ksi.toStringAsFixed(4)}\n\n';
       iter++;
     } while ((x1 - x0).abs() > e);
@@ -35,6 +37,8 @@ String tangent(double x0, double x1, double e, List<double> coefs) {
       ksi = x1 - f(x1, coefs) / fDerivative(x1, coefs);
       x0 = x1;
       x1 = ksi;
+      result += 'F(${x0.toStringAsFixed(2)}) = ${f(x0, coefs).toStringAsFixed(4)}\n';
+      result += 'F(${x1.toStringAsFixed(2)}) = ${f(x1, coefs).toStringAsFixed(4)}\n';
       result += 'x$iter = ${ksi.toStringAsFixed(4)}\n\n';
       iter++;
     } while ((x1 - x0).abs() > e);
@@ -73,16 +77,16 @@ String iterative(List<double> approx, List<double> firstRow, List<double> second
     maxDiff = maxDiff < (x3 - x3_prev).abs() ? (x3 - x3_prev).abs() : maxDiff;
 
     if (maxDiff < e) {
-      result += 'Решение найдено после $iter итераций:\n';
-      result += 'x1 = ${x1.toStringAsFixed(2)}\nx2 = ${x2.toStringAsFixed(2)}\nx3 = ${x3.toStringAsFixed(2)}\n';
+      result += 'Решение найдено после ${iter-1} итераций:\n';
+      result += 'x1 = ${x1.toStringAsFixed(4)}\nx2 = ${x2.toStringAsFixed(4)}\nx3 = ${x3.toStringAsFixed(4)}\n';
       return result;
     }
   } while (true);
 }
 
-String seidel(List<double> firstRow, List<double> secondRow, List<double> thirdRow, List<double> b, double e) {
+String seidel(List<double> approx,List<double> firstRow, List<double> secondRow, List<double> thirdRow, List<double> b, double e) {
   String result = '';
-  double x1 = 0, x2 = 0, x3 = 0; // Начальные значения x1, x2 и x3 можно выбрать любыми
+  double x1 = approx[0], x2 = approx[1], x3 = approx[2]; // Начальные значения x1, x2 и x3 можно выбрать любыми
 
   result += 'Начальное приближение: {\n\tx1 = $x1\n\tx2 = $x2\n\tx3 = $x3\n}\n';
 
@@ -97,7 +101,7 @@ String seidel(List<double> firstRow, List<double> secondRow, List<double> thirdR
     x2 = (b[1] - secondRow[0] * x1 - secondRow[2] * x3_prev) / secondRow[1];
     x3 = (b[2] - thirdRow[0] * x1 - thirdRow[1] * x2) / thirdRow[2];
 
-    result += 'Итерация $iter: {\n\tx1 = ${x1.toStringAsFixed(3)}\n\tx2 = ${x2.toStringAsFixed(3)}\n\tx3 = ${x3.toStringAsFixed(3)}\n}\n';
+    result += 'Итерация $iter: {\n\tx1 = ${x1.toStringAsFixed(4)}\n\tx2 = ${x2.toStringAsFixed(4)}\n\tx3 = ${x3.toStringAsFixed(4)}\n}\n';
 
     iter++;
 
@@ -106,12 +110,13 @@ String seidel(List<double> firstRow, List<double> secondRow, List<double> thirdR
     maxDiff = maxDiff < (x3 - x3_prev).abs() ? (x3 - x3_prev).abs() : maxDiff;
 
     if (maxDiff < e) {
-      result += 'Решение найдено после $iter итераций:\n';
-      result += 'x1 = ${x1.toStringAsFixed(2)}\nx2 = ${x2.toStringAsFixed(2)}\nx3 = ${x3.toStringAsFixed(2)}\n';
+      result += 'Решение найдено после ${iter-1} итераций:\n';
+      result += 'x1 = ${x1.toStringAsFixed(4)}\nx2 = ${x2.toStringAsFixed(4)}\nx3 = ${x3.toStringAsFixed(4)}\n\n';
       return result;
     }
   } while (true);
 }
+
 
 double f (double x, List<double> coefs){
   return coefs[0] * pow(x, 3) + coefs[1] * x + coefs[2]; 

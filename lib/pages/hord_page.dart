@@ -71,7 +71,9 @@ class _HordPageState extends State<HordPage> {
             }
           ),
         ),
-        body: Center(
+        body: SingleChildScrollView( 
+          scrollDirection: Axis.vertical,
+          child: Center(
           child: Padding(
             padding: const EdgeInsets.all(20.0), 
             child: Column(
@@ -229,7 +231,7 @@ class _HordPageState extends State<HordPage> {
                   const Text('РЕЗУЛЬТАТ'),
                   Container(
                     margin: const EdgeInsets.all(10),
-                    height: 280,
+                    height: 800,
                     width: 400,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
@@ -251,6 +253,7 @@ class _HordPageState extends State<HordPage> {
             ]
           ),
           )
+        )
         )
       )
     );
